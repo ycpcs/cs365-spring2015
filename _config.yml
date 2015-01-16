@@ -1,0 +1,7 @@
+baseurl: "http://ycpcs.github.io/cs365-spring2015"
+markdown: rdiscount
+highlighter: pygments
+coursename: "CS 365"
+
+rdiscount:
+  extensions: [smart]
