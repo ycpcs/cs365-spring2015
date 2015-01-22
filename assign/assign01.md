@@ -15,7 +15,7 @@ An instance of **Grid** represents a 2-dimensional grid of **uint8\_t** (8 bit u
 Getting started
 ---------------
 
-Download [CS365\_Assign1.zip](CS365_Assign1.zip) and unzip it. In a Unix shell, change directory into the **CS365\_Assign1** directory.
+Download [CS365\_Assign01.zip](CS365_Assign01.zip) and unzip it. In a Unix shell, change directory into the **CS365\_Assign01** directory.
 
 You can do your development work on the cluster head node or your own local machine. If you are using Windows, you will need [Cygwin](http://cygwin.com/).
 
