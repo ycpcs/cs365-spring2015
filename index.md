@@ -10,6 +10,8 @@ This is the web page for CS 365, Spring 2015 at York College.  All information a
 ## Links
 
 * [Syllabus](syllabus.html)
+* [Schedule](schedule.html)
+* [Labs](labs/index.html)
 
 ## News
 
