@@ -3,8 +3,6 @@ layout: default
 title: "Syllabus"
 ---
 
-*Preliminary syllabus, not official*
-
 # CS 365 - Parallel and Distributed Computing
 
 **Spring 2015**
