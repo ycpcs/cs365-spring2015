@@ -11,8 +11,6 @@ Class time: T/Th, 2:00&ndash;3:15 PM, KEC 124
 
 Instructor: [David Hovemeyer](http://faculty.ycp.edu/~dhovemey/), <dhovemey@ycp.edu>, KEC 113<br>Office hours TBD
 
-**Spring 2013**
-
 Course Description
 ------------------
 
