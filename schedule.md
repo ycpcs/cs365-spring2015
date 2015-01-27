@@ -14,7 +14,7 @@ Jan 27 | Parallel computation | [Lecture 2: Intro to Parallel Computation](lectu
 Jan 29 | MPI | [Lecture 3: MPI](lectures/lecture03.html), Sections 3.1&ndash;3.3 (p. 83&ndash;101)
 Feb 3 | Elements of a Parallel Program | [Lecture 4: Elements of a Parallel Program](lectures/lecture04.html)
 Feb 5 | 
-Feb 10 | MPI Collective Communications | Lecture 5: MPI Collective Communications, Section 3.4 (p. 101&ndash;116)
+Feb 10 | MPI Collective Communications | [Lecture 5: MPI Collective Communications](lectures/lecture05.html), Section 3.4 (p. 101&ndash;116)
 Feb 12 | 
 Feb 17 | MPI Derived Datatypes | [Lecture 6: MPI Derived Datatypes](lectures/lecture06.html), Section 3.5 (p. 116&ndash;119)
 Feb 19 | MPI Performance | Lecture 7: MPI Performance, Section 3.6 (p. 119&ndash;127)
