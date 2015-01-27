@@ -3,6 +3,10 @@ layout: default
 title: "Schedule"
 ---
 
+This page lists the topics and readings for each class.  Please do the reading before coming to class.
+
+This schedule will be updated occasionally: all updates will be announced in class and posted on the course web page.
+
 Date | Topic/Activity | Reading
 ---- | -------------- | -------
 Jan 22 | C Review | [Lecture 1: C Pointers and Dynamic Memory Allocation](lectures/lecture01.html)
