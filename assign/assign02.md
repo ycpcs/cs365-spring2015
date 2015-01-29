@@ -83,6 +83,44 @@ The file **testin.dat** contains an data file with an initial configuration of a
 
 Here is a transcript showing the expected output when running the sequential program on this input file (user commands in **bold**):
 
+<pre>
+[dhovemey@cscluster]$ <b>./life_seq testin.dat 0</b>
+5 10
+0 0 1 0 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 0 0
+0 1 1 1 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+[dhovemey@cscluster]$ <b>./life_seq testin.dat 1</b>
+5 10
+0 0 0 0 0 0 0 0 0 0
+0 1 0 1 0 0 0 0 0 0
+0 0 1 1 0 0 0 0 0 0
+0 0 1 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+[dhovemey@cscluster]$ <b>./life_seq testin.dat 2</b>
+5 10
+0 0 0 0 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 0 0
+0 1 0 1 0 0 0 0 0 0
+0 0 1 1 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+[dhovemey@cscluster]$ <b>./life_seq testin.dat 3</b>
+5 10
+0 0 0 0 0 0 0 0 0 0
+0 0 1 0 0 0 0 0 0 0
+0 0 0 1 1 0 0 0 0 0
+0 0 1 1 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+[dhovemey@cscluster]$ <b>./life_seq testin.dat 4</b>
+5 10
+0 0 0 0 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 0 0
+0 0 0 0 1 0 0 0 0 0
+0 0 1 1 1 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+</pre>
+
 Make sure your sequential implementation produces similar output.
 
 ## Milestone 2: Parallel computation
