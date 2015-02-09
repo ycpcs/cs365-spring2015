@@ -17,7 +17,7 @@ Add 5900 to your VNC session number to compute the port number. I.e., if your se
 
 In a cygwin shell, run the command
 
-> <code>ssh -o "TCPKeepAlive yes" -L<i>port</i>:cscluster.ycp.edu:<i>port</i> <i>username</i>@cs.ycp.edu</code>
+> <code>ssh -L<i>port</i>:cscluster.ycp.edu:<i>port</i> <i>username</i>@cs.ycp.edu</code>
 
 *port* is your port number, *username* is your YCP username.
 
