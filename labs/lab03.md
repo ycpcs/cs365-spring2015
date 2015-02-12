@@ -6,7 +6,7 @@ title: "Lab 3: MPI Collective Communication"
 Getting Started
 ===============
 
-Download [CS365\_Lab03.zip](CS365_Lab03.zip) to your cluster head node account. Unzip it.
+Download [CS365\_Lab03.zip](CS365_Lab03.zip) to your cluster head node account. Unzip it.  You will edit the code in `integrate.c`.
 
 Numerical Integration
 =====================
@@ -15,8 +15,7 @@ Numerical integration works by sampling a series of points along a function, and
 
 In *midpoint approximation*, the series of points along the curve is chosen so that each chosen point is the midpoint of the top of a series of equal-width rectangles:
 
-> ![Numerical integration](img/1000px-Integration_rectangle.svg.png>)
->
+> <img style="width: 400px;" alt="Numerical integration" src="img/1000px-Integration_rectangle.svg.png"><br>
 > ([source: Wikipedia](http://en.wikipedia.org/wiki/File:Integration_rectangle.svg))
 
 By increasing the number of rectangles, the accuracy of the result can be improved.
@@ -26,7 +25,7 @@ Your Task
 
 Your task is to use *numerical integration* to compute an approximation of the area under the curve of the function
 
-> y = sin(x) + x\<sup\>1.3\</sup\> cos(x) + x ln(x)
+> y = sin(x) + x<sup>1.3</sup> cos(x) + x ln(x)
 
 in a specific range of x values.
 
@@ -47,6 +46,14 @@ Use the **runpar** script to run the program with a specific number of processor
 
 Here is an example run (user input in **bold**) with 10 processors:
 
+<pre>
+[dhovemey@cscluster]$ <b>./runpar 10</b>
+xmin: <b>0.000001</b>
+xmax: <b>10</b>
+nrects: <b>100000</b>
+area estimate is 77.935194
+</pre>
+
 Try running with the same input values but varying numbers of processors. The area estimate should be the same each time.
 
 Requirements and Hints
@@ -62,7 +69,7 @@ The **sin** and **cos** functions compute the sine and cosine (respectively) of 
 
 The **pow** function raises a number to an arbitrary power: for example, **pow(x, 1.3)** would compute
 
-> x\<sup\>1.3\</sup\>
+> x<sup>1.3</sup>
 
 The **log** function computes the natural log of its argument. (Use this for the ln(x) factor in the function.)
 
