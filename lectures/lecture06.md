@@ -80,4 +80,4 @@ MPI\_Type\_struct
 
 The **MPI\_Type\_struct** function can be used to define a datatype that is a composite of existing datatypes: for example, to descibe a C struct datatype.
 
-[TODO: how to use.]
+Discussion question: Is **MPI\_Type\_struct** necessary? (Hint: not really.)  Why does it exist?
