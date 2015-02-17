@@ -17,6 +17,14 @@ Your task is to use an [MPI derived datatype](../lectures/lecture06.html) to all
 
 After modifying the program, it should produce the same output as before.
 
+## Testing
+
+Use `make` to compile the program.  Use the command
+
+    ./runpar
+
+to run the program.  (It will run with exactly two processes.)
+
 ## Hints
 
 Use `MPI_Type_vector` to define the column datatype.
