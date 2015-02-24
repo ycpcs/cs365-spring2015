@@ -160,6 +160,8 @@ Once the program is working well (but not before!), you can consider making the 
 
 ## Testing the parallel version
 
+### Small (20x20) test
+
 Here is an automated test you can run.  From your `CS365_Assign02` directory, run the following command:
 
     wget http://ycpcs.github.io/cs365-spring2015/assign/runtests.zip
@@ -214,6 +216,19 @@ If all goes well, the output should look like:
     19 generations:
     20 generations:
     No failures...parallel output looks good!
+
+### Large (1200x1200) test
+
+Run the following command:
+
+    wget http://ycpcs.github.io/cs365-spring2015/assign/hugetest.zip
+
+Run `make` to make sure your code is compiled.  Then run the following commands:
+
+    ./runpar huge.dat 400 8 7 > actual400.out
+    diff actual400.out par400.out
+
+If the `diff` command produces no output, then your parallel program produced the same output as mine on the input `huge.dat` after 400 generations of simulation.
 
 # Grading criteria
 
