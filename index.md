@@ -19,6 +19,7 @@ This is the web page for CS 365, Spring 2015 at York College.  All information a
 
 ## News
 
+* **Feb 24** - The description for [Assignment 2](assign/assign02.html) has been updated with information about testing the parallel implementation.
 * **Feb 17** - Exam 1 will take place in class on Thursday, Feb 26th.  It will be open book and open notes.  A practice exam is available on the [Practice Exams](practice/index.html) page.
 * **Jan 30** - If you see an empty black screen when you run the default terminal emulator, select **Edit &rarr; Profile Preferences**, choose the **Colors** tab, then uncheck "Use colors from system theme".  Finally, choose one of the built-in schemes (gray on black works well.)
 * **Jan 29** - [Assignment 2](assign/assign02.html) has two milestones.  Milestone 1 is due Thursday, Feb 5th by 11:59 PM.  Milestone 2 is due Friday, Feb 27th by 11:59 PM.
