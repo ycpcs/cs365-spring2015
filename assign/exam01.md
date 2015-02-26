@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "CS 365 - Exam 1"
+title: "Exam 1"
 ---
 
 This page has the instructions for getting started on Question 3 on Exam 1.  Note that the printed handout also has important information about the question, including hints and suggestions.
