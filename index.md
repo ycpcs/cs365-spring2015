@@ -16,6 +16,7 @@ This is the web page for CS 365, Spring 2015 at York College.  All information a
 * [Resources](resources.html)
 * [VNC through SSH](vncSshTunnel.html)
 * [Practice Exams](practice/index.html)
+* [Code examples](examples/index.html)
 
 ## News
 
