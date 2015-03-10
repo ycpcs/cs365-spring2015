@@ -36,3 +36,7 @@ For example, you could run the command
     ./sumu16_par /usr/local/data/256M.dat
 
 to run the program on a file containing 2<sup>30</sup> 16 bit unsigned data values.
+
+The output of the programs (sequential and parallel) should be
+
+    Sum is 4831770778
