@@ -22,3 +22,4 @@ Feb 24 | MPI Review
 Feb 26 | **Exam 1**
 Mar 3 | Winter vacation, no class
 Mar 5 | Winter vacation, no class
+Mar 10 | Pthreads introduction | [Lecture 8: Introduction to pthreads](lectures/lecture08.html)
