@@ -23,3 +23,5 @@ Feb 26 | **Exam 1**
 Mar 3 | Winter vacation, no class
 Mar 5 | Winter vacation, no class
 Mar 10 | Pthreads introduction | [Lecture 8: Introduction to pthreads](lectures/lecture08.html)
+Mar 12 | Mutexes | [Lecture 9: Mutexes](lectures/lecture09.html), Sections 4.1&ndash;4.6
+Mar 17 | Condition Variables | [Lecture 10: Condition Variables](lectures/lecture10.html), Sections 4.7&ndash;4.8
