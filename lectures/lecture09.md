@@ -179,9 +179,9 @@ If two threads acquire two different mutexes in different orders, they can enter
     Thread 1       Thread 2
     --------------------------
     lock A
-            lock B
+                   lock B
     lock B
-            lock A
+                   lock A
 
 Each thread is put to sleep indefinitely because the other thread has already acquired the lock it is trying to acquire.
 
