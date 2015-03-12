@@ -59,67 +59,69 @@ Mutex Example: shared atomic counter
 
 > "atomic" means that all operations on a counter happen "all at once"
 
-    // Unsynchronized version
+{% highlight cpp %}
+// Unsynchronized version
 
-    struct Counter {
-        int count;
-    };
+struct Counter {
+    int count;
+};
 
-    void counter_init(struct Counter *c)
-    {
-        c->count = 0;
-    }
+void counter_init(struct Counter *c)
+{
+    c->count = 0;
+}
 
-    void counter_incr(struct Counter *c)
-    {
-        int val = c->count;
-        val = val + 1;
-        c->count = val;
-    }
+void counter_incr(struct Counter *c)
+{
+    int val = c->count;
+    val = val + 1;
+    c->count = val;
+}
 
-    int counter_get(struct Counter *c)
-    {
-        int val = c->count;
-        return val;
-    }
+int counter_get(struct Counter *c)
+{
+    int val = c->count;
+    return val;
+}
 
-    // Synchronized version
+// Synchronized version
 
-    struct Counter {
-        int count;
-        pthread_mutex_t lock;
-    };
+struct Counter {
+    int count;
+    pthread_mutex_t lock;
+};
 
-    void counter_init(struct Counter *c)
-    {
-        c->count = 0;
-        pthread_mutex_init(&c->lock, NULL);
-    }
+void counter_init(struct Counter *c)
+{
+    c->count = 0;
+    pthread_mutex_init(&c->lock, NULL);
+}
 
-    void counter_incr(struct Counter *c)
-    {
-        int val;
+void counter_incr(struct Counter *c)
+{
+    int val;
 
-        pthread_mutex_lock(&c->lock);
+    pthread_mutex_lock(&c->lock);
 
-        val = c->count;
-        val = val + 1;
-        c->count = val;
+    val = c->count;
+    val = val + 1;
+    c->count = val;
 
-        pthread_mutex_unlock(&c->lock);
-    }
+    pthread_mutex_unlock(&c->lock);
+}
 
-    int counter_get(struct Counter *c)
-    {
-        int val;
+int counter_get(struct Counter *c)
+{
+    int val;
 
-        pthread_mutex_lock(&c->lock);
-        val = c->count;
+    pthread_mutex_lock(&c->lock);
+    val = c->count;
 
-        pthread_mutex_unlock(&c->lock);
+    pthread_mutex_unlock(&c->lock);
 
-        return val;
-    }
+    return val;
+}
+{% endhighlight %}
 
 The unsynchronized version of this data type would be perfectly fine for a single threaded program.
 

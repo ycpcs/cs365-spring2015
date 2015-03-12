@@ -43,7 +43,9 @@ Example - Wait for counter to reach threshold
 
 Add an operation to the counter data type from the [previous lecture](lecture09.html) to wait until the counter has reached a specific threshold value. Prototype:
 
-    void counter_wait_threshold(Counter *c, int threshold);
+{% highlight cpp %}
+void counter_wait_threshold(Counter *c, int threshold);
+{% endhighlight %}
 
 We need to add a **pthread\_cond\_t** variable to the **Counter** type:
 
@@ -55,17 +57,19 @@ The idea is that incrementing the counter value may enable a condition that anot
 
 Finally, here is the new **counter\_wait\_threshold**:
 
-    void counter_wait_threshold(Counter *c, int threshold)
-    {
-        pthread_mutex_lock(&c->lock);
+{% highlight cpp %}
+void counter_wait_threshold(Counter *c, int threshold)
+{
+    pthread_mutex_lock(&c->lock);
 
-        while (c->count < threshold) {
-            pthread_cond_wait(&c->cond, &c->lock);
-        }
-        // now c->count >= threshold
-
-        pthread_mutex_unlock(&c->lock);
+    while (c->count < threshold) {
+        pthread_cond_wait(&c->cond, &c->lock);
     }
+    // now c->count >= threshold
+
+    pthread_mutex_unlock(&c->lock);
+}
+{% endhighlight %}
 
 Demo: [pthread\_counter2.zip](pthread_counter2.zip)
 
@@ -86,63 +90,71 @@ We will assume that we have a **queue\_t** data type that represents a generic q
 
 The **BoundedQueue** data type represents a bounded queue which may contain up to a given maximum number of items:
 
-    typedef struct {
-        queue_t q; // the queue
-        int max;   // max number of items
-        int count; // current number of items
+{% highlight cpp %}
+typedef struct {
+    queue_t q; // the queue
+    int max;   // max number of items
+    int count; // current number of items
 
-        pthread_mutex_t lock;
-        pthread_cond_t cond;
-    } BoundedQueue;
+    pthread_mutex_t lock;
+    pthread_cond_t cond;
+} BoundedQueue;
+{% endhighlight %}
 
 The **boundedqueue\_init** operation initializes a **BoundedQueue**:
 
-    void boundedqueue_init(BoundedQueue* bq, int max)
-    {
-        queue_init(&bq->q);
-        bq->max = max;
-        bq->count = 0;
-        pthread_mutex_init(&bq->lock, NULL);
-        pthread_cond_init(&bq->cond, NULL);
-    }
+{% highlight cpp %}
+void boundedqueue_init(BoundedQueue* bq, int max)
+{
+    queue_init(&bq->q);
+    bq->max = max;
+    bq->count = 0;
+    pthread_mutex_init(&bq->lock, NULL);
+    pthread_cond_init(&bq->cond, NULL);
+}
+{% endhighlight %}
 
 The **boundedqueue\_enqueue** operation enqueues an item. The item can only be added to the queue if the queue is not full:
 
-    void boundedqueue_enqueue(BoundedQueue* bq, void *item)
-    {
-        pthread_mutex_lock(&bq->lock);
+{% highlight cpp %}
+void boundedqueue_enqueue(BoundedQueue* bq, void *item)
+{
+    pthread_mutex_lock(&bq->lock);
 
-        while (bq->count >= bq->max) {
-            pthread_cond_wait(&bq->cond, &bq->lock);
-        }
-
-        queue_enqueue(&bq->q, item);
-        bq->count++;
-        pthread_cond_broadcast(&bq->cond); // wake up consumer
-
-        pthread_mutex_unlock(&bq->lock);
+    while (bq->count >= bq->max) {
+        pthread_cond_wait(&bq->cond, &bq->lock);
     }
+
+    queue_enqueue(&bq->q, item);
+    bq->count++;
+    pthread_cond_broadcast(&bq->cond); // wake up consumer
+
+    pthread_mutex_unlock(&bq->lock);
+}
+{% endhighlight %}
 
 The loop waits until the queue is not full, calling **pthread\_cond\_wait** each time the queue is found to be full. Once the queue is not full, the item is enqueued and the queue's item count is incremented. Note that we do a **pthread\_cond\_broadcast** at this point because the consumer thread may be waiting for the queue to become nonempty.
 
 The **boundedqueue\_dequeue** operation dequeues an item. It is very similar to **boundedqueue\_enqueue**, except that it waits for the queue to become non-empty:
 
-    void* boundedqueue_dequeue(BoundedQueue* bq)
-    {
-        pthread_mutex_lock(&bq->lock);
+{% highlight cpp %}
+void* boundedqueue_dequeue(BoundedQueue* bq)
+{
+    pthread_mutex_lock(&bq->lock);
 
-        while (bq->count == 0) {
-            pthread_cond_wait(&bq->cond, &bq->lock);
-        }
-
-        void *result = queue_dequeue(&bq->q);
-        bq->count--;
-        pthread_cond_broadcast(&bq->cond); // wake up consumer
-
-        pthread_mutex_unlock(&bq->lock);
-
-        return result;
+    while (bq->count == 0) {
+        pthread_cond_wait(&bq->cond, &bq->lock);
     }
+
+    void *result = queue_dequeue(&bq->q);
+    bq->count--;
+    pthread_cond_broadcast(&bq->cond); // wake up consumer
+
+    pthread_mutex_unlock(&bq->lock);
+
+    return result;
+}
+{% endhighlight %}
 
 Demo: [prodcons.zip](prodcons.zip)
 
