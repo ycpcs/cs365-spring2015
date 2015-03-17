@@ -49,9 +49,38 @@ void counter_wait_threshold(Counter *c, int threshold);
 
 We need to add a **pthread\_cond\_t** variable to the **Counter** type:
 
+{% highlight cpp %}
+typedef struct {
+        int count;
+        pthread_mutex_t lock;
+        pthread_cond_t cond;   // <-- added this
+} Counter;
+{% endhighlight %}
+
 The **counter\_init** function can initialize the condition variable using the **pthread\_cond\_init** function:
 
+{% highlight cpp %}
+void counter_init(Counter *c)
+{
+        c->count = 0;
+        pthread_mutex_init(&c->lock, NULL);
+        pthread_cond_init(&c->cond, NULL); // <-- added this
+}
+{% endhighlight %}
+
 Operations that change the value of the counter must call **pthread\_cond\_broadcast**. Right now, there is only one operation that changes the value of the counter, **counter\_incr**:
+
+{% highlight cpp %}
+void counter_incr(Counter *c)
+{
+        pthread_mutex_lock(&c->lock);
+        int val = c->count;
+        val = val + 1;
+        c->count = val;
+        pthread_cond_broadcast(&c->cond); // <-- added this
+        pthread_mutex_unlock(&c->lock);
+}
+{% endhighlight %}
 
 The idea is that incrementing the counter value may enable a condition that another thread is waiting for — specifically, the counter reaching a specified threshold.
 
