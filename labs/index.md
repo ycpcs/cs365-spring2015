@@ -15,3 +15,4 @@ Feb 19 | [Lab 5: Message-Passing Performance](lab05.html) | [CS365\_Lab05.zip](C
 Mar 10 | [Lab 6: Pthreads](lab06.html) | [CS365\_Lab06.zip](CS365_Lab06.zip) | [CS365\_Lab06\_Solution.zip](CS365_Lab06_Solution.zip)
 Mar 12 | [Lab 7: Mutexes in pthreads](lab07.html) | [CS365\_Lab07.zip](CS365_Lab07.zip) | 
 Mar 17 | [Lab 8: Shared Queue](lab08.html) | [CS365\_Lab08.zip](CS365_Lab08.zip) | 
+Mar 19 | [Lab 9: Reader/Writer Locks](lab09.html) | [CS365\_Lab09.zip](CS365_Lab09.zip) | 
