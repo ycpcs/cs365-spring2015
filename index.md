@@ -20,6 +20,7 @@ This is the web page for CS 365, Spring 2015 at York College.  All information a
 
 ## News
 
+* **Mar 23** - The [Schedule](schedule.html) has been updated.
 * **Mar 17** - [Assignment 3](assign/assign03.html) is due Friday, April 3rd by 11:59 PM.
 * **Feb 24** - The description for [Assignment 2](assign/assign02.html) has been updated with information about testing the parallel implementation.
 * **Feb 17** - Exam 1 will take place in class on Thursday, Feb 26th.  It will be open book and open notes.  A practice exam is available on the [Practice Exams](practice/index.html) page.
