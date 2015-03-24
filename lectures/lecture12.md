@@ -55,6 +55,28 @@ Rather than having standalone method calls to lock and unlock a Java monitor, Ja
 
 Simple example: a shared counter (synchronized blocks in **bold**):
 
+    public class SharedCounter {
+        private Object lock = new Object();
+    
+        private int count;
+    
+        public SharedCounter() {
+            this.count = 0;
+        }
+    
+        public void increment() {
+            synchronized (lock) {
+                count++;
+            }
+        }
+    
+        public int get() {
+            synchronized (lock) {
+                return count;
+            }
+        }
+    }
+
 Each synchronized block specifies the monitor to be locked. You can think of entering a synchronized block as being like a call to **pthread\_mutex\_lock**, and leaving a synchronized block as being like a call to **pthread\_mutex\_unlock**. (Indeed, at the bytecode level, there are special **monitorenter** and **monitorexit** instructions that are essentially lock and unlock operations.)
 
 Java uses a special form of syntax for critical sections to ensure that if the critical section throws an exception, the lock is guaranteed to be released. Otherwise, a monitor could be left in a locked state, meaning that any future attempt to acquire the lock will result in deadlock.
