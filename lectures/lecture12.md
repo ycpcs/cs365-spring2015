@@ -188,7 +188,7 @@ this.wait();
 
 to wait on its condition, implying that "this" is the lock associated with the condition.
 
-This is why synchronized methods are a bad idea. They make the mechanism used to synchronize access to the shared data, which is a *private implementation detail of the class*, and expose it to the world. The main danger is that there is nothing preventing *users* of the shared counter object from performing synchronization. For example:
+This is why synchronized methods are a bad idea. They make the mechanism used to synchronize access to the shared data, which is a *private implementation detail of the class*, exposed to the world. The main danger is that there is nothing preventing *users* of the shared counter object from performing synchronization. For example:
 
 {% highlight java %}
 StupidCounter c = new StupidCounter();
