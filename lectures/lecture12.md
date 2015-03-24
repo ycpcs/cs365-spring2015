@@ -55,27 +55,29 @@ Rather than having standalone method calls to lock and unlock a Java monitor, Ja
 
 Simple example: a shared counter (synchronized blocks in **bold**):
 
-    public class SharedCounter {
-        private Object lock = new Object();
-    
-        private int count;
-    
-        public SharedCounter() {
-            this.count = 0;
-        }
-    
-        public void increment() {
-            synchronized (lock) {
-                count++;
-            }
-        }
-    
-        public int get() {
-            synchronized (lock) {
-                return count;
-            }
+{% highlight java %}
+public class SharedCounter {
+    private Object lock = new Object();
+
+    private int count;
+
+    public SharedCounter() {
+        this.count = 0;
+    }
+
+    public void increment() {
+        synchronized (lock) {
+            count++;
         }
     }
+
+    public int get() {
+        synchronized (lock) {
+            return count;
+        }
+    }
+}
+{% endhighlight %}
 
 Each synchronized block specifies the monitor to be locked. You can think of entering a synchronized block as being like a call to **pthread\_mutex\_lock**, and leaving a synchronized block as being like a call to **pthread\_mutex\_unlock**. (Indeed, at the bytecode level, there are special **monitorenter** and **monitorexit** instructions that are essentially lock and unlock operations.)
 
@@ -129,6 +131,23 @@ In theory, recursive locks allow a method which involves synchronization to invo
 
 In practice, it is best to avoid having methods which use synchronization call each other directly. Instead, each method which uses synchronization should call helper methods which do *not* use synchronization. One way to think about this is that all helper methods that directly access shared data have "the monitor must be locked" as a precondition. Then the "front-end" methods that provide high-level operations on the data can acquire the monitor, call the helper methods, and then release the monitor:
 
+{% highlight java %}
+public void highLevelOperation() {
+    synchronized (lock) {
+        ... code ...
+        lowLevelHelper();
+        ... code ...
+    }
+}
+
+/*
+ * Precondition: the lock must have been acquired already.
+ */
+private void lowLevelHelper() {
+    ... operations that directly use/modify shared data ...
+}
+{% endhighlight %}
+
 Synchronized Methods
 --------------------
 
@@ -170,6 +189,19 @@ this.wait();
 to wait on its condition, implying that "this" is the lock associated with the condition.
 
 This is why synchronized methods are a bad idea. They make the mechanism used to synchronize access to the shared data, which is a *private implementation detail of the class*, and expose it to the world. The main danger is that there is nothing preventing *users* of the shared counter object from performing synchronization. For example:
+
+{% highlight java %}
+StupidCounter c = new StupidCounter();
+
+... code ...
+
+// trivially deadlock all threads which are using the counter
+synchronized (c) {
+    while (true) {
+        Thread.sleep(1000);
+    }
+}
+{% endhighlight %}
 
 This is a somewhat contrived example. However, programmers may write similar code in a well-meaning attempt to use the class correctly.
 
