@@ -10,8 +10,10 @@ If you understand pthreads mutexes and condition variables, then Java threads sh
 
 In Java, *any* object can be used as both a mutex and a condition variable. So, in a Java class representing a data structure that will be accessed by multiple threads, you will often see a field like the following:
 
-    // protect access to shared data
-    private Object lock = new Object();
+{% highlight java %}
+// protect access to shared data
+private Object lock = new Object();
+{% endhighlight %}
 
 The field **lock** will be used to protect all critical sections on the shared data, and may also be used to do condition waits and broadcasts.
 
