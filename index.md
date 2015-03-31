@@ -20,6 +20,8 @@ This is the web page for CS 365, Spring 2015 at York College.  All information a
 
 ## News
 
+* **Mar 31** - [Assignment 4](assign/assign04.html), a research project, has been posted.  You should discuss an idea with me by April 14th.  Report and code are due Friday, May 8th, and the presentations will take place during the scheduled final exam time, Tuesday, May 12th, 12:45&ndash;2:45 PM.
+* **Mar 31** - The due date for [Assignment 3](assign/assign03.html) has been changed to Friday, April 10th by 11:59 PM.
 * **Mar 23** - The [Schedule](schedule.html) has been updated.
 * **Mar 17** - [Assignment 3](assign/assign03.html) is due Friday, April 3rd by 11:59 PM.
 * **Feb 24** - The description for [Assignment 2](assign/assign02.html) has been updated with information about testing the parallel implementation.

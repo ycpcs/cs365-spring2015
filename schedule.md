@@ -28,3 +28,5 @@ Mar 17 | Condition Variables | [Lecture 10: Condition Variables](lectures/lectur
 Mar 19 | Reader/writer locks, thread safety | [Lecture 11: Reader/Writer Locks](lectures/lecture11.html), Sections 4.9&ndash;4.11
 Mar 24 | Java Threads, Synchronization | [Lecture 12: Java Threads, Synchronization](lectures/lecture12.html)
 Mar 26 | Fork/Join Parallelism | [Lecture 13: Fork/Join Parallelism](lectures/lecture13.html), Doug Lea: [A Java Fork/Join Framework](http://gee.cs.oswego.edu/dl/papers/fj.pdf)
+Mar 31 | Work day
+Apr 7 | Lock-free data structures | Maged Michael and Michael Scott, [Simple, Fast, and Practical Non-Blocking and Blocking Concurrent Queue Algorithms](http://www.research.ibm.com/people/m/michael/podc-1996.pdf)
