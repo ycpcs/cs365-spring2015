@@ -38,8 +38,15 @@ ssize_t write(int fd, const void *buf, size_t count);
 > read and write are a pain. For example, no formatted input/output.
 >
 > Solution: convert a file descriptor into a FILE \* using the fdopen() function.  Then, use standard I/O functions such as `fprintf`, `fgets`, and `fscanf` to do I/O
->
-> Pro tip: use the mode `"r+"` when converting a file descriptor to a FILE\*: this allows the file handle to be used for both reading and writing
+
+Note that attempting to use a single FILE\* to read from and write from the pipe will not necessarily work.  (TODO: figure out why!)  A work-around is to use the `dup` system call to duplicate the socket file descriptor, and then make two calls to `fdopen` to create file handles for reading an writing:
+
+{% highlight c %}
+int fd = socket(...);
+
+FILE *read_fh = fdopen(fd, "r");
+FILE *write_fh = fdopen(fd, "w");
+{% endhighlight %}
 
 ## Unix man pages
 
