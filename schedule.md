@@ -30,3 +30,4 @@ Mar 24 | Java Threads, Synchronization | [Lecture 12: Java Threads, Synchronizat
 Mar 26 | Fork/Join Parallelism | [Lecture 13: Fork/Join Parallelism](lectures/lecture13.html), Doug Lea: [A Java Fork/Join Framework](http://gee.cs.oswego.edu/dl/papers/fj.pdf)
 Mar 31 | Work day
 Apr 7 | Lock-free data structures | [Lecture 14: Lock-free data structures](lectures/lecture14.html), Maged Michael and Michael Scott, [Simple, Fast, and Practical Non-Blocking and Blocking Concurrent Queue Algorithms](http://www.research.ibm.com/people/m/michael/podc-1996.pdf)
+Apr 9 | Sockets | [Lecture 15: Socket programming in C](lectures/lecture15.html)
