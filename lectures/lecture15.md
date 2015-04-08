@@ -5,10 +5,6 @@ title: "Lecture 15: Socket programming in C"
 
 # Sockets
 
-Demo programs:
-
-> [socket.zip](socket.zip)
-
 ## TCP/IP Socket programming
 
 Sockets - the Unix standard API for network I/O
@@ -23,13 +19,13 @@ File descriptors are used in all Unix system calls which do I/O, or other operti
 
 ### read and write
 
-read - read data from a file/stream named by a file descriptor into a buffer
+**read** - read data from a file/stream named by a file descriptor into a buffer
 
 {% highlight cpp %}
 ssize_t read(int fd, void *buf, size_t count);
 {% endhighlight %}
 
-write - write data from a buffer to a file/stream named by a file descriptor
+**write** - write data from a buffer to a file/stream named by a file descriptor
 
 {% highlight cpp %}
 ssize_t write(int fd, const void *buf, size_t count);
@@ -41,9 +37,22 @@ ssize_t write(int fd, const void *buf, size_t count);
 
 > read and write are a pain. For example, no formatted input/output.
 >
-> Solution: convert a file descriptor into a FILE \* using the fdopen() function.
+> Solution: convert a file descriptor into a FILE \* using the fdopen() function.  Then, use standard I/O functions such as `fprintf`, `fgets`, and `fscanf` to do I/O
 >
-> [convert demo programs: use formatted I/O to make things easier]
+> Pro tip: use the mode `"r+"` when converting a file descriptor to a FILE\*: this allows the file handle to be used for both reading and writing
+
+## Unix man pages
+
+The Unix `man` command shows Unix manual pages.  These are extremely useful for getting quick reference documentation on system calls and C library functions.
+
+Unix system calls (such as **read** and **write**) are documented in section 2 of the manual, and standard C library functions (such as **fdopen**) are documented in section 3 of the manual.
+
+Some example commands to try:
+
+    man 2 open
+    man 2 read
+    man 2 write
+    man 3 fdopen
 
 ## Sockets
 
@@ -84,3 +93,15 @@ domain - what protocol family the socket will use. PF\_INET for TCP/IP
 type - SOCK\_STREAM for stream, SOCK\_DGRAM for datagram
 
 protocol - identifies a particular protocol to use, if not uniquely determined by type. Just use 0 for any TCP/IP socket.
+
+## Example programs
+
+Demo programs:
+
+> [socket.zip](socket.zip)
+
+* write\_to\_file.c &ndash; open a file and write to it using Unix system calls
+* server.c &ndash; a simple server program implemented using Unix system calls for I/O
+* server2.c &ndash; similar to server.c, but using `fdopen` and standard I/O functions
+* client.c &ndash; a simple client program (which connects to the server implemented by server.c and server2.c), using Unit system calls for I/O
+* client2.c &ndash; similar to client.c, but using `fdopen` and standard I/O functions
