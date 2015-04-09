@@ -131,6 +131,14 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
 The return value is a file descriptor naming a socket connected to a two-way communications channel to the client.
 
+`connect` &mdash; connect to a server
+
+{% highlight cpp %}
+int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+{% endhighlight %}
+
+Connects to a remote process.  This is the system call that a client process uses to connect to establish a connection to a server process.
+
 ## Concurrency issues
 
 Once a process is listening on a server socket, any number of clients may request connections.  If the server handles the connections in a strictly one at a time manner, then undesirable behavior results: only one client will be able to connect at a time.
