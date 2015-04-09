@@ -3,7 +3,7 @@ layout: default
 title: "Lecture 15: Socket programming in C"
 ---
 
-# Unit File I/O, Sockets
+# Unix I/O, Sockets
 
 Demo programs:
 
@@ -87,7 +87,9 @@ At the time the socket API was created (at UC Berkeley in the early 1980s), a va
 
 For this reason, the socket API treats socket addresses as an opaque data type, with multiple address types as "subclasses".
 
-`sockaddr\_un` &mdash; a union of all available socket types
+`sockaddr_un` &mdash; a union of all available socket types
+
+For TCP/IP, you will use the `sockaddr_in` address type.
 
 ## Socket API
 
@@ -124,14 +126,24 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
 * sockfd &mdash; the server socket file descriptor
 * addr &mdash; a pointer to a `sockaddr` struct (really, a "subclass" of `sockaddr`) where the client's network address will be stored
-* addrlen &ndash; the size in bytes of the struct that addr points to
+* addrlen &ndash; pointer to a variable containing the size in bytes of the struct that addr points to; will be modified to store the actual address size
 
 The return value is a file descriptor naming a socket connected to a two-way communications channel to the client.
+
+## Concurrency issues
+
+Once a process is listening on a server socket, any number of clients may request connections.  If the server handles the connections in a strictly one at a time manner, then undesirable behavior results: only one client will be able to connect at a time.
+
+Threads are one possible solution: the server can create a thread to handle each new connection, allowing multiple connections to be handled simultaneously.  This is an application of threads where *concurrency* is the motivation, rather than *parallelism* (although parellelism is often desirable in server applications as well.)
+
+One somewhat difficult issue that arises in server applications is how to handle blocking operations, mainly I/O operations such as `accept`.  For example, we might want a mechanism to allow the server to shut itself down cleanly.  However, if the server is "stuck" in a blocking call to `accept` (or other blocking system call), then it may be difficult to gracefully "unstick" the thread that is suspended in the blocking system call.  One possible solution is to use *nonblocking* I/O.  A file descriptor, including a server socket, can be marked as nonblocking using the `fcntl` system call.  The `select` system call allows a calling thread to do a timed wait until either a file descriptor becomes "ready" (e.g., an incoming connection is available on a server socket), or a timeout expires.  Because nonblocking I/O avoids any operations that would block indefinitely, it allows the program to check for situations such as a shutdown request.
 
 ## Example programs
 
 * write\_to\_file.c &mdash; open a file and write to it using Unix system calls
 * server.c &mdash; a simple server program implemented using Unix system calls for I/O
 * server2.c &mdash; similar to server.c, but using `fdopen` and standard I/O functions
+* server3.c &mdash; a server that does two-way communication with clients, by reading lines and sending them back: use the `telnet` program as a client
+* server4.c &mdash; like server3.c, but uses threads to support multiple concurrent connections
 * client.c &mdash; a simple client program (which connects to the server implemented by server.c and server2.c), using Unit system calls for I/O
 * client2.c &mdash; similar to client.c, but using `fdopen` and standard I/O functions

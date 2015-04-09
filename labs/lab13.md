@@ -5,6 +5,10 @@ title: "Lab 13: Network Arithmetic Server"
 
 # Getting Started
 
+Download [CS365\_Lab13.zip](CS365_Lab13.zip) and unzip it.
+
+You will edit the code in `arithmetic_server.c`.
+
 # Your Task
 
 Write a server that
@@ -20,9 +24,17 @@ You can use the socket example programs from [Lecture 15](../lectures/lecture15.
 
 # Hints
 
-* Use `fdopen` to convert the client socket into a FILE\* file handle
-* Use `fscanf` to read two integer values from the client file handle
-* Use `fprintf` to send the result value back to the client
+* Use `dup` to duplicate the client socket file descriptor
+* Use `fdopen` to convert the client socket into two FILE\* file handles, one for reading, one for writing
+* Use `fscanf` to read two integer values from the client file handle (reading from the read file handle)
+* Use `fprintf` to send the result value back to the client (writing to the write file handle)
+
+You can implement this server as a "one shot" protocol" where the server reads a single request, sends back a single response, and then closes the connection.
+
+If you have additional time, you can consider adding the following features:
+
+* Allow the client to submit multiple requests, one per line, and have the server send back as many responses as necessary
+* Use threads to allow multiple clients to connect simultaneously
 
 # Testing
 
