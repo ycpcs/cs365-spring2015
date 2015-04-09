@@ -46,10 +46,11 @@ Solution: convert a file descriptor into a FILE \* using the fdopen() function. 
 Note that attempting to use a single FILE\* to read from and write from the pipe will not necessarily work.  (TODO: figure out why!)  A work-around is to use the `dup` system call to duplicate the socket file descriptor, and then make two calls to `fdopen` to create file handles for reading an writing:
 
 {% highlight c %}
-int fd = socket(...);
+int fd = /* a socket file descriptor from accept or connect */
+int fd_copy = dup(fd);
 
 FILE *read_fh = fdopen(fd, "r");
-FILE *write_fh = fdopen(fd, "w");
+FILE *write_fh = fdopen(fd_copy, "w");
 {% endhighlight %}
 
 ## Unix man pages
