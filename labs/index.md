@@ -15,8 +15,8 @@ Feb 19 | [Lab 5: Message-Passing Performance](lab05.html) | [CS365\_Lab05.zip](C
 Mar 10 | [Lab 6: Pthreads](lab06.html) | [CS365\_Lab06.zip](CS365_Lab06.zip) | [CS365\_Lab06\_Solution.zip](CS365_Lab06_Solution.zip)
 Mar 12 | [Lab 7: Mutexes in pthreads](lab07.html) | [CS365\_Lab07.zip](CS365_Lab07.zip) | [CS365\_Lab07\_Solution.zip](CS365_Lab07_Solution.zip)
 Mar 17 | [Lab 8: Shared Queue](lab08.html) | [CS365\_Lab08.zip](CS365_Lab08.zip) | [CS365\_Lab08\_Solution.zip](CS365_Lab08_Solution.zip)
-Mar 19 | [Lab 9: Reader/Writer Locks](lab09.html) | [CS365\_Lab09.zip](CS365_Lab09.zip) | 
-Mar 24 | [Lab 10: Java Producer/Consumer Simulation](lab10.html) | [CS365\_Lab10.zip](CS365_Lab10.zip) |
-Mar 26 | [Lab 11: Parallel Sorting Using Fork/Join](lab11.html) | [CS365\_Lab11.zip](CS365_Lab11.zip) | 
-Apr 7 | [Lab 12: Lock-free random number generator](lab12.html) | [CS365\_Lab12.zip](CS365_Lab12.zip) | 
+Mar 19 | [Lab 9: Reader/Writer Locks](lab09.html) | [CS365\_Lab09.zip](CS365_Lab09.zip) | [CS365\_Lab09\_Solution.zip](CS365_Lab09_Solution.zip)
+Mar 24 | [Lab 10: Java Producer/Consumer Simulation](lab10.html) | [CS365\_Lab10.zip](CS365_Lab10.zip) | [CS365\_Lab10\_Solution.zip](CS365_Lab10_Solution.zip)
+Mar 26 | [Lab 11: Parallel Sorting Using Fork/Join](lab11.html) | [CS365\_Lab11.zip](CS365_Lab11.zip) | [CS365\_Lab11\_Solution.zip](CS365_Lab11_Solution.zip)
+Apr 7 | [Lab 12: Lock-free random number generator](lab12.html) | [CS365\_Lab12.zip](CS365_Lab12.zip) | [CS365\_Lab12\_Solution.zip](CS365_Lab12_Solution.zip)
 Apr 9 | [Lab 13: Network Arithmetic Server](lab13.html) | [CS365\_Lab13.zip](CS365_Lab13.zip) | 
