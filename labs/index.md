@@ -20,3 +20,4 @@ Mar 24 | [Lab 10: Java Producer/Consumer Simulation](lab10.html) | [CS365\_Lab10
 Mar 26 | [Lab 11: Parallel Sorting Using Fork/Join](lab11.html) | [CS365\_Lab11.zip](CS365_Lab11.zip) | [CS365\_Lab11\_Solution.zip](CS365_Lab11_Solution.zip)
 Apr 7 | [Lab 12: Lock-free random number generator](lab12.html) | [CS365\_Lab12.zip](CS365_Lab12.zip) | [CS365\_Lab12\_Solution.zip](CS365_Lab12_Solution.zip)
 Apr 9 | [Lab 13: Network Arithmetic Server](lab13.html) | [CS365\_Lab13.zip](CS365_Lab13.zip) | [CS365\_Lab13\_Solution.zip](CS365_Lab13_Solution.zip)
+Apr 14 | [Lab 14: Network Arithmetic Server (Java version)](lab14.html) | [CS365\_Lab14.zip](CS365_Lab14.zip) |
