@@ -20,7 +20,7 @@ This is the web page for CS 365, Spring 2015 at York College.  All information a
 
 ## News
 
-* **April 21** - Exam 2 will take place in class on Thursday, April 30th.  A practice exam is available on the [Practice Exams](practice/index.html) page.
+* **April 21** - A practice exam for Exam 2 is available on the [Practice Exams](practice/index.html) page.
 * **April 16** - The [Schedule](schedule.html) has been updated.  Exam 2 will take place in class on Thursday, April 30th.
 * **April 16** - You may resubmit [Assignment 2](assign/assign02.html), Milestone 2, for up to 70% of full credit.  Corrected versions must be submitted by Friday, May 1st.  Submit to the same inbox (**assign05\_ms2**), and also [email me](mailto:dhovemey@ycp.edu) to let me know that you submitted a corrected version.
 * **Mar 31** - [Assignment 4](assign/assign04.html), a research project, has been posted.  You should discuss an idea with me by April 14th.  Report and code are due Friday, May 8th, and the presentations will take place during the scheduled final exam time, Tuesday, May 12th, 12:45&ndash;2:45 PM.
