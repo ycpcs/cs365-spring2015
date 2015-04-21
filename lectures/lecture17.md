@@ -37,11 +37,33 @@ Keywords:
 
 Calling a kernel function:
 
+<pre>
+__global__ void kernel( <i>...params...</i> )
+{
+        <i>...code...</i>
+}
+
+...
+
+void main( void )
+{
+        kernel&lt;&lt;&lt;par blocks, num threads per block&gt;&gt;&gt;( <i>...args...</i> );
+}
+</pre>
+
 *par blocks* is a description of how many "blocks" (chunks of data) the kernel function will be called on. *num threads per block* specifies how many threads are executed (in parallel) per block.
 
 *par blocks* can be a single integer N, in which case the kernel function is executed on N blocks. It can also be a two dimensional grid:
 
+<pre>
+dim3 grid( <i>xdim</i>, <i>ydim</i> );
+</pre>
+
 The above declaration defines a grid where the x dimension is in the range 0..*xdim* - 1 and the y dimension is in the range 0..*ydim* - 1. The kernel function is then invoked as
+
+<pre>
+kernel&lt;&lt;&lt;grid, 1&gt;&gt;&gt;( ...args... );
+</pre>
 
 Within the kernel function, the special **blockIdx** variable contains the information about which block the kernel is being executed on:
 
