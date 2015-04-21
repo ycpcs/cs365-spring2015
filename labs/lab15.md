@@ -44,7 +44,7 @@ Here are some transformations you can try implementing.
 Blur
 ----
 
-Set each pixel value in the output image so that its component values (red, green, blue, and alpha) are the average of the component values of some number of surrounding pixels.
+Set each pixel value in the output image so that its component values (red, green, blue, and alpha) are the average of the component values of some number of surrounding pixels.  Be careful to avoid accessing nonexistent pixels.  (I.e., the pixels in the top row of the image don't have any neighbors above them.)
 
 For example, here is the result of transforming an image so that each pixel in the output image is the component-wise average of the 11x11 block of surrounding pixels. (Click for full size image.)
 
