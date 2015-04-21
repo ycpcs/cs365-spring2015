@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "CS 365: Practice Exams"
+title: "Practice Exams"
 ---
 
 This page links to practice exams.
