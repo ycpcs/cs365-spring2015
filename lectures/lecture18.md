@@ -3,6 +3,8 @@ layout: default
 title: "Lecture 18: CUDA Threads"
 ---
 
+Updated CUDA example code: [cudaHello2.zip](cudaHello2.zip)
+
 # Using CUDA Threads
 
 To fully exploit GPU hardware using CUDA, it is necessary to use CUDA threads.
