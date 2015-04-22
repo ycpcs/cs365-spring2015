@@ -32,6 +32,36 @@ kernel<<<grid, THREADS_PER_BLOCK>>>( dev_data );
 
 Note that because the problem size (in one or more dimensions) might not divide evenly by the number of threads, it may be necessary to schedule additional blocks.
 
+Here is the modified kernel function:
+
+{% highlight cpp %}
+__global__ void kernel( int *data )
+{
+	int i = blockIdx.x;
+	int j = blockIdx.y*blockDim.x + threadIdx.x;
+
+	// If the number of rows (DIM) did not divide evenly by the
+	// number of threads, then the last "row" of blocks will
+	// have some excess threads that won't be assigned to
+	// actual rows of the computation.  The if statement checks
+	// to make sure that the grid row index (j) is valid
+	// before doing the computation.
+
+	if (j < DIM) {
+		float x = -2.0f + (((float)i / DIM) * 4.0f);
+		float y = -2.0f + (((float)j / DIM) * 4.0f);
+
+		int iters = cuMandelIters( cuComplexMake( x, y ) );
+
+		data[j * DIM + i ] = iters;
+	}
+}
+{% endhighlight %}
+
+Note that `blockDim.x` gives us the total number of threads per block, and `threadIdx.x` gives us the current thread number (in the range 0..`blockDim.x`-1).  In the kernel function, we use this information to compute the row number in the computation.
+
+Using 32 threads per block, the running time of the computation decreases from 472.6 ms to 7.2 ms.
+
 <!-- vim:set wrap: ­-->
 <!-- vim:set linebreak: -->
 <!-- vim:set nolist: -->
