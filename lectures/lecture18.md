@@ -60,9 +60,9 @@ __global__ void kernel( int *data )
 }
 {% endhighlight %}
 
-Note that `blockDim.x` gives us the total number of threads per block, and `threadIdx.x` gives us the current thread number (in the range 0..`blockDim.x`-1).  In the kernel function, we use this information to compute the row number in the computation.
+Note that `blockDim.x` gives us the total number of threads per block, and `threadIdx.x` gives us the current thread number (in the range 0..`blockDim.x`-1, inclusive).  In the kernel function, we use this information to compute the row number in the computation.
 
-Using 32 threads per block, the running time of the computation decreases from 472.6 ms to 7.2 ms.
+Using 32 threads per block, the running time of the computation decreases from 472.6 ms to 7.2 ms.  Using 64 threads per block, the running time is about 6.4 ms.
 
 <!-- vim:set wrap: ­-->
 <!-- vim:set linebreak: -->
