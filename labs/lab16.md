@@ -3,8 +3,6 @@ layout: default
 title: "Lab 16: CUDA Threads"
 ---
 
-/restindex
-
 # Getting Started
 
 This lab is a continuation of [Lab 15](../labs/lab15.html).
