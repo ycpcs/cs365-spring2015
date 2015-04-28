@@ -9,7 +9,15 @@ Because they are functional languages (employing a programming model where most 
 
 # Concurrency in Clojure
 
-Example computation: the [Mandelbrot Set](http://en.wikipedia.org/wiki/Mandelbrot_set).
+## Look Ma, no locks!
+
+*None* of the native concurrency features in Clojure use locks.
+
+Example code: [clojure-concurrency.zip](clojure-concurrency.zip), is an Eclipse/Counterclockwise project using Leiningen.
+
+## Mandelbrot set computation
+
+Example computation: the [Mandelbrot Set](http://en.wikipedia.org/wiki/Mandelbrot_set), a computation that computationally expensive and has easily exploitable parallelism.
 
 Here is a very basic sequential implementation of the Mandelbrot set computation.  The goal is to compute a grid of iteration counts, where each item in the grid is the number of times the equation
 
@@ -133,17 +141,13 @@ takes about .75 seconds.
 
 ## pcalls and pmap
 
-The **pcalls** and **pmap** functions invoke functions in parallel and builds a list of results.
+The `pcalls` and `pmap` functions invoke functions in parallel and builds a list of results.
 
-**pmap** invokes a single function (in parallel) on each element of a list (or other sequence):
+`pmap` invokes a single function (in parallel) on each element of a list (or other sequence):
 
-**pmap** works more or less the same as **map**, but if the computation being performed for each element of the sequence is expensive, could allow parallelism.
+`pmap` works more or less the same as `map`, but if the computation being performed for each element of the sequence is expensive, could allow parallelism.
 
-**pcalls** invokes an arbitrary series of 0-argument functions in parallel and builds a list containing the results. (We'll see a use of **pcalls** in the next section.)
-
-## Atoms
-
-TODO
+`pcalls` invokes an arbitrary series of 0-argument functions in parallel and builds a list containing the results. (We'll see a use of `pcalls` in the next section.)
 
 ## Refs, software transactional memory
 
@@ -155,104 +159,114 @@ Example: map coloring. Given a map --- for example, a map of the US --- assign c
 
 A simple way to find a map coloring is to start by assigning all regions the same color, and then, for each region, looking at neighboring regions and attempting to find a color that is not used by any neighboring region.
 
-Here is a program that uses the **pcalls** function to attempt to find a legal color for each US state, based on the [adjacency lists for each state](http://writeonly.wordpress.com/2009/03/20/adjacency-list-of-states-of-the-united-states-us/):
+In the source file `statecolors.clj` is a program that uses the `pcalls` function to attempt to find a legal color for each US state, based on the [adjacency lists for each state](http://writeonly.wordpress.com/2009/03/20/adjacency-list-of-states-of-the-united-states-us/).
 
-> [statecolors.clj](statecolors.clj)
-
-The **find-state-colors** function uses **pcalls** to start a worker function for each state. Each worker repeatedly executes a transaction which
+The `find-state-colors` function uses `pcalls` to start a worker function for each state. Each worker repeatedly executes a transaction which
 
 -   checks the colors of the neighbors
 -   if possible, updates the state's color to be a color not used by any of its neighbors
 
-The **state-colors** vector contains one ref for each state, where the value of each ref is initially set to red:
+The `state-colors` vector contains one ref for each state, where the value of each ref is initially set to red:
 
 {% highlight clojure %}
-(def state-colors
-  (vec (repeatedly (count state-adjacency-list) (fn [] (ref 'red)))))
+def state-colors
+  (vec (repeatedly (count state-adjacency-list) (fn [] (ref :red)))))
 {% endhighlight %}
 
-Here is the **worker** function, which attempts to find a color for a given state (the state is identified by an index number):
+The `update-state-color` function attempts to change the color of a particular state to be different than its neighbors (if necessary):
 
 {% highlight clojure %}
-; Worker function to try computing a color for a state
-; by examining the colors of adjacent states and (if possible)
-; picking a color that is not used by the neighboring states.
-(defn worker [index count maxiters ok]
-  (if (= count maxiters)
-    ; Reached the end of the computation:
-    ; return the final color, along with boolean indicating whether
-    ; the final color is legal (as far as we can tell)
-    (list (deref (nth state-colors index)) ok)
-    ; In a transaction, attempt to find a color for the state.
-    (do
-      ; The found-legal-color variable will be set to the
-      ; result of the transaction: true if we found a
-      ; legal color for the state, false if not.
-      ; This value is sent into the next recursive call
-      ; so we always have an idea of whether or not this
-      ; worker was able to find a legal color for its state.
-      (let [found-legal-color
-             ; Start a transaction.
-             (dosync
-               ; Find state's current color and the colors of
-               ; of its neighbors.
-               (let [my-color (deref (nth state-colors index))
-                     neighbor-colors (get-neighbor-colors index)]
-                 (if (contains? neighbor-colors my-color)
-                   ; The state is using the same color as one of
-                   ; its neighbors, so choose a new color
-                   ; by setting the state's ref to a new color.
-                   ; Evaluate to true or false depending on
-                   ; whether the new color is different from
-                   ; its neighbors' colors.
-                   (let [new-color (choose-other-color neighbor-colors my-color)]
-                     (do (ref-set (nth state-colors index) new-color)
-                         (not (contains? neighbor-colors new-color))))
-                   ; Current color is ok
-                   true)))]
-      ; Continue recursively.
-      (recur index (+ count 1) maxiters found-legal-color)))))
-{% endhighlight %}
-
-The interesting part is the **dosync** which executes the examination of the neighbors' colors and updates the state's color in a transaction. The result of the overall call to the worker function is a list with two elements: the first is the state's final color, and the second is a boolean which indicates whether or not a legal color was found for the state.
-
-The **find-state-colors** function invokes the worker function in parallel, once for each state:
-
-{% highlight clojure %}
-(defn find-state-colors [maxiters]
-  (apply pcalls (map (fn [i] (fn [] (worker i 1 maxiters false)))
-                     (range 0 (count state-adjacency-list)))))
-{% endhighlight %}
-
-Note that the result of the call to **map** is a list of functions, where each function will invoke the **worker** function with the specified index value and maximum number of iterations. The inidices are generated by the **range** function. The result of **pcalls** is a list containing the result of each parallel function.
-
-Example run (user input in **bold**):
-
-The **check-state-colors** function checks the final **state-colors** vector to ensure that each state was assigned a color different from its neighbors:
-
-{% highlight clojure %}
-(defn check-state [i neighbors]
-  (if (empty? neighbors)
+; Attempt to update the color assigned to given state
+; in order to make it different than its neighbors.
+; Returns true if a good color was found, false otherwise.
+(defn update-state-color [state]
+  (let [my-color (deref (get state-colors (state-index state)))
+        neighbor-colors (get-neighbor-colors state)]
+    (if (not (contains? neighbor-colors my-color))
+      ; Current color is ok
       true
-      (let [neighbor-index (state-to-index-map (first neighbors))]
-        (if (= (deref (nth state-colors i)) (deref (nth state-colors neighbor-index)))
-            false
-            (recur i (rest neighbors))))))
-
-(defn check-state-colors []
-  (letfn [(work [i n]
-            (if (= i n)
-                true
-                (if (not (check-state i (get-neighbors i)))
-                    false
-                    (recur (+ i 1) n))))]
-    (work 0 (count state-colors))))
+      ; See what colors are available (not used by neighbors)
+      (let [candidates (clojure.set/difference colors neighbor-colors)]
+        (if (empty? candidates)
+          ; Neighbors have already used all available colors,
+          ; so there's no point in choosing a new color
+          false
+          (do
+            ; Set new state color randomly from available candidate colors
+            (ref-set (get state-colors (state-index state)) (rand-nth (seq candidates)))
+            ; As far as we know, the state's color is now good
+            true))))))
 {% endhighlight %}
 
-Calling **check-state-colors** to ensure that the computation was successful:
+Because this function updates refs, it must be executed in a transaction using `dosync`.  This is done by the `worker` function, which attempts to find a color for a given state:
 
-Agents
-------
+{% highlight clojure %}
+; Worker function: for some number of iterations, attempt to
+; update state color of given state to be different than its
+; neighbors.
+(defn worker [state num-iters]
+  ;(println "Finding color for state " state " using " num-iters " iterations")
+  (loop [count 0
+         color-is-ok false]
+    (if (>= count num-iters)
+      (do
+        ;(println "Finished for " state)
+        color-is-ok)
+      (let [found-legal (dosync (update-state-color state))]
+        (recur (+ count 1) found-legal)))))
+{% endhighlight %}
+
+The result of the overall call to the worker function is a boolean which indicates whether or not a legal color was found for the state.
+
+The `find-state-colors` function invokes the worker function in parallel, once for each state:
+
+{% highlight clojure %}
+; Create parallel tasks for each state, use them to find a possible
+; color for each state.  Each worker will use maxiters as its number
+; of iterations.
+(defn find-state-colors [maxiters]
+  (apply pcalls (map (fn [state] (fn [] (worker state maxiters))) (keys state-to-index-map))))
+{% endhighlight %}
+
+Note that the result of the call to `map` is a list of functions, where each function will invoke the `worker` function with the specified state value and maximum number of iterations.  The result of `pcalls` is a list containing the result of each parallel function.
+
+Example run in the Clojure REPL (user input in **bold**):
+
+<pre>
+=> <b>(find-state-colors 4000)</b>
+(true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true true)
+</pre>
+
+In this case, valid colors were found for all states.
+
+The `check-state-colors` function checks the final `state-colors` vector to ensure that each state was assigned a color different from its neighbors:
+
+{% highlight clojure %}
+; Check whether a given state has neighbors which are all
+; of different colors.
+(defn check-state [state]
+  (let [my-color (deref (get state-colors (state-index state)))
+        neighbor-colors (get-neighbor-colors state)]
+    (let [ok (not (contains? neighbor-colors my-color))]
+      (if (not ok)
+        (println "Failed to find color for " state))
+      ok)))
+{% endhighlight %}
+
+Calling `check-state-colors` to ensure that the computation was successful:
+
+<pre>
+=> <b>(check-state-colors)</b>
+true
+</pre>
+
+Note that the algorithm used by this program is not guaranteed to find a valid coloring: if a state's neighbors use all possible colors, then the state's worker will be unable to set a valid color.  A possible solution would be to have the state's worker randomly change the color of one of its neighbors if this happens.
+
+## Atoms
+
+Atoms: kind of like refs, but there is no support for transactions.  Each atom supports atomic updates to its value, but the updates are independent of other atoms.
+
+## Agents
 
 Agents are much like actors in Erlang and Scala: an agent is a sequential process that receives messages and processes them, and may send messages to other actors.
 
@@ -274,6 +288,19 @@ Really simple example:
 {% endhighlight %}
 
 Dynamically creating an actor and sending it some messages:
+
+<pre>
+user=> <b>(def my-agent (agent 1))</b>
+#'user/my-agent
+user=> <b>(send my-agent say "Hello")</b>
+1
+Hello
+#<Agent@10e98462: 2>
+user=> <b>(send my-agent say "World")</b>
+2
+World
+#<Agent@10e98462: 2>
+</pre>
 
 In this example, the agent's data is a number that is incremented each time the **say** message is received.
 
