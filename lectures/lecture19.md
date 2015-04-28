@@ -141,7 +141,11 @@ The **pcalls** and **pmap** functions invoke functions in parallel and builds a 
 
 **pcalls** invokes an arbitrary series of 0-argument functions in parallel and builds a list containing the results. (We'll see a use of **pcalls** in the next section.)
 
-## Atoms, software transactional memory
+## Atoms
+
+TODO
+
+## Refs, software transactional memory
 
 For some concurrent computations, you may want to use shared mutable state. Clojure makes it relatively easy to express these kinds of computations through *software transactional memory*. The idea is that the state that can change is expressed as *refs*. A ref is a "box" that holds a value, but the value in the box can be changed at any time.
 
