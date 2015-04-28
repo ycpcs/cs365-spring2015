@@ -13,6 +13,6 @@ Try:
 
 <pre>
 (def data (shuffle (range 100000)))
-(time (merge-sort data))
-(time (merge-sort-par data))
+(time (do (merge-sort data) "done"))
+(time (do (merge-sort-par data)))
 </pre>
