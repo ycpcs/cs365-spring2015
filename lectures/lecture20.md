@@ -3,7 +3,7 @@ layout: default
 title: "Lecture 20: Concurrency in Erlang"
 ---
 
-Example code: [echo.erl](echo.erl), [mandelbrot.erl](mandelbrot.erl), [rowactor.erl](rowactor.erl), [mandelbrotactor.erl](mandelbrotactor.erl)
+Example code: [erlang-concurrency.zip](erlang-concurrency.zip)
 
 Concurrency in Erlang
 =====================
