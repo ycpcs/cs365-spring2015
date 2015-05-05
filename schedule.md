@@ -35,5 +35,6 @@ Apr 14 | Java Sockets | [Lecture 16: Socket programming in Java](lectures/lectur
 Apr 16 | Work day |
 Apr 21 | GPGPU Computation, CUDA | [Lecture 17: GPGPU Programming, CUDA](lectures/lecture17.html)
 Apr 23 | GPGPU Computation | [Lecture 18: CUDA Threads](lectures/lecture18.html)
-Apr 28 | Concurrency in Erlang and Clojure | [Lecture 19: Concurrency in Clojure](lectures/lecture19.html) |
+Apr 28 | Concurrency in Clojure | [Lecture 19: Concurrency in Clojure](lectures/lecture19.html) |
 Apr 30 | **Exam 2** |
+May 5 | Concurrency in Erlang | [Lecture 20: Concurrency in Erlang](lectures/lecture20.html) |

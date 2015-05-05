@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lecture 19: Concurrency in Clojure and Erlang"
+title: "Lecture 19: Concurrency in Clojure"
 ---
 
 [Clojure](http://clojure.org) and [Erlang](http://www.erlang.org) are functional languages that have built-in support for concurrency.
@@ -303,10 +303,6 @@ World
 </pre>
 
 In this example, the agent's data is a number that is incremented each time the **say** message is received.
-
-# Concurrency in Erlang
-
-We will probably do this next week.
 
 <!-- vim:set wrap: ­-->
 <!-- vim:set linebreak: -->
